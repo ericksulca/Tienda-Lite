@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block imports %}
+Buscar Venta
+{% endblock %}
+
+{% block title %}
+Buscar Venta
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="white-box">
+                <h3 class="box-title">Buscar Venta</h3>
+                <form action="." method="post" enctype="multipart/form-data"> 
+                <ul>
+                {% load widget_tweaks %}
+                {% csrf_token %}
+                    <div class="form-group">
+                        <input type="number" name="NroVenta" id="NroVenta" required class="form-control" >
+                    </div>
+                        
+                    <button class="btn btn-success" data-toggle="modal" data-target="">Buscar Venta</button>
+
+
+                </ul>
+                </form>
+ 
+            </div>
+        </div>
+    </div>  
+{% endblock %}

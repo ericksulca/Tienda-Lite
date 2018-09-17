@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block imports %}
+Registrar Nuevo Cliente
+{# Aca agregar los .js o .css que se quiere importar #}
+{% endblock %}
+
+{% block title %}
+Registrar Nuevo Cliente
+{% endblock %}
+
+{% block content %}
+	<div class="row">
+        <div class="col-sm-12">
+            <div class="white-box">
+                <h3 class="box-title">Formulario de nuevo cliente</h3>
+                <form action="." method="post" enctype="multipart/form-data"> 
+				<ul>
+				{% load widget_tweaks %}
+				{% csrf_token %}
+					<div class="form-group">
+				    {# Formulario desde Modelo Cliente #}
+				    {% for field in form %}
+							{{ field.errors }}
+							{{ field.label_tag }}</br>
+							{{ field|add_class:"form-control" }}
+				    {% endfor %}
+				    {# Agregar Input para URL de Google y crear evento keyup (para tecla Enter) y obtener coordenadas #}
+
+
+
+					<button class="btn btn-success" data-toggle="modal" data-target="">Agregar Cliente</button>
+
+
+				</ul>
+				</form>
+ 
+			</div>
+	    </div>
+    </div>  
+{% endblock %}

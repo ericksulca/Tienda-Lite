@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block imports %}
+Buscar Venta
+{% endblock %}
+
+{% block title %}
+Buscar Venta
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="white-box">
+                <h3 class="box-title">VENTA ANULADA</h3>
+                <h4>Fecha Venta: {{oVenta.fecha}}</h4>
+                <h4>Productos: </h4>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td>Nº</td>
+                            <td>Cantidad</td>
+                            <td>Nombre</td>
+                            <td>Precio Unit.</td>
+                        </tr>
+                    </thead>
+
+                    {% for oVentaproducto in oVentaproductos %}
+                    <tbody>
+                        <tr>    
+                            <td> {{ forloop.counter }} </td>
+                            <td> {{ oVentaproducto.cantidad}} </td>
+                            <td> {{ oVentaproducto.producto.nombre}} </td>
+                            <td> {{ oVentaproducto.precioventa}} </td>
+                        </tr>
+                    </tbody>
+                    {% endfor %}
+                </table>
+                <h4>Total S/: {{oVenta.monto}}</h4>
+                <a href="/venta/listar/"><button class="btn btn-success" data-toggle="modal" data-target="">Volver</button></a>
+            </div>
+        </div>
+    </div>  
+{% endblock %}

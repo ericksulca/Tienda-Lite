@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block imports %}
+Productos
+{% endblock %}
+
+{% block title %}
+Productos
+{% endblock %}
+
+{% block content %}
+	<div class="row">
+        <div class="col-sm-12">
+            <div class="white-box">
+                <h3 class="box-title">Lista de Productos</h3>
+				{% load widget_tweaks %}
+				{% csrf_token %}
+					<div class="form-group">
+					<table id="tCamiones"  class="table">	
+						<thead>
+	                        <tr>
+	                            <th>#</th>
+	                            <th>Imagén</th>
+	                            <th>Nombre</th>
+	                            <th>Código</th>
+	                            <th>Cantidad</th>
+	                            <th>Precio x Mayor</th>
+	                            <th>Precio x Menor</th>
+	                            <th>Opciones</th>
+	                        </tr>
+	                    </thead>
+				    {% for oProducto in object_list %}
+						{% if oProducto.estado == True %}
+						    <tr>
+						    	<td>{{ forloop.counter }}</td>
+						    	<td>{{oProducto.imagen}}</td>
+						    	<td>{{oProducto.nombre}}</td>
+						    	<td>{{oProducto.codigo}}</td>
+						    	<td>{{oProducto.cantidad}}</td>
+						    	<td>{{oProducto.precioxmayor}}</td>
+						    	<td>{{oProducto.precioxmenor}}</td>
+						    	<td>
+						    		<a href="/producto/detalle/{{oProducto.id}}/"><button type="button" class="btn btn-info">Ver</button> </a>
+						    	</td>
+						    </tr>
+				    	{% endif %}
+				    {% endfor %}
+					</table>
+				    <br>	
+				    <ul class="pager">
+						<li>
+							{% if page_obj.has_previous %}
+					       	 <a href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+							{% endif %}
+					        </li>
+						<li>
+							{% if page_obj.has_next %}
+					     	 <a href="?page={{ page_obj.next_page_number }}">Siguiente</a> 
+					    	{% endif %}
+					    </li>
+					</ul>
+				    <br>	
+	    			<a href="/producto/nuevo/"><button type="button" class="btn btn-success">Nuevo Producto</button> </a>
+ 
+			</div>
+	    </div>
+    </div>  
+{% endblock %}

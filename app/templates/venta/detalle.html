@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block imports %}
+Buscar Venta
+{% endblock %}
+
+{% block title %}
+Buscar Venta
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="white-box">
+                <h3 class="box-title">Detalles Venta</h3>
+                <h4>Fecha Venta: {{oVenta.fecha}}</h4>
+                <h4>Productos: </h4>
+                <table class="table"> 
+                    <thead>
+                        <tr>
+                            <td>Nº</td>
+                            <td>Cantidad</td>
+                            <td>Nombre</td>
+                            <td>Precio Unit.</td>
+                        </tr>
+                    </thead>
+
+                    {% for oVentaproducto in oVentaproductos %}
+                    <tbody>
+                        <tr>    
+                            <td> {{ forloop.counter }} </td>
+                            <td> {{ oVentaproducto.cantidad}} </td>
+                            <td> {{ oVentaproducto.producto.nombre}} </td>
+                            <td> {{ oVentaproducto.precioventa}} </td>
+                        </tr>
+                    </tbody>
+                    {% endfor %}
+                </table>
+                <h4>Total S/: {{oVenta.monto}}</h4>
+                <form action="." method="post" enctype="multipart/form-data"> 
+                {% csrf_token %}
+                    <div class="form-group">
+                        <input type="number" name="idVenta" id="idVenta" required class="form-control" value="{{oVenta.id}}" style="visibility:hidden">
+                        <br>    
+                        <label for="id_nombre">Descripción:</label>
+                        <br>    
+                        <input type="textarea" name="DescAnulacion" id="DescAnulacion" required class="form-control" >
+                    </div>
+                        
+                    <button class="btn btn-success" data-toggle="modal" data-target="">Anular</button>
+
+
+                </form>
+ 
+            </div>
+        </div>
+    </div>  
+{% endblock %}

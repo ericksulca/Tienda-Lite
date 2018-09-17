@@ -1,0 +1,117 @@
+<html>
+	<head>
+		<title>
+			Boleta N°: {{ numero_boleta }}
+		</title>
+		<script src="/static/js/Scripts/jquery-1.9.1.js" type="text/javascript"></script>
+	        <script src="/static/js/Scripts/jquery-ui-1.10.1.js" type="text/javascript"></script>
+			<script type="text/javascript">
+	    $(document).ready(function(){
+			window.print();
+			self.close();
+		});
+	</script>
+		<style>
+		    div.cabeza { 
+			    padding: 100px 0 0 0;
+				/*background-color: #00FF00; */
+				width: 550;
+				height: 55;
+		    }
+		     div.contenido { 
+			    padding: 10px 0 0 0;
+			    /*background-color: #8ac7c2; */
+			    width: 550;
+	    		height: 120;
+		    }
+		    div.total { 
+			    padding-top: 5px;
+				/*background-color: #00FF00; */
+				height: 25;
+				width: 550;
+				text-align: right;
+		    }
+		    table.datosCliente { 
+		    	font-size: 14px;
+				/*background-color: #8ac7c2; */
+				width: 100%;
+				padding-left: 40px;
+   				padding-right: 40px;
+		    }
+		    table.detalle { 
+				/*background-color: #00FF00; */
+		    	font-size: 12px;
+				width: 100%;
+				padding-left: 10px;
+   				padding-right: 20px;
+		    }
+		    p{
+		    	font-size: 14px;
+		    }
+		    p.fecha{
+		    	text-align: right 
+		    }
+		    p.documento{
+		    	text-align: right 
+		    }
+		    p.total{
+		    	font-size: 16px;
+   				padding-right: 100px;
+		    }
+		    td.pUnitario{
+				width: 100px;
+		    	text-align: center; 
+		    }
+		    td.subTotal{
+				width: 100px;
+		    	text-align: center; 
+		    }
+	  	</style>
+	</head>
+	<body>
+		<div class="ticket">
+			<div class="cabeza">
+				<table class="datosCliente">
+					<tr>
+						<td>
+							<p class="cliente">{{cliente}}</p>
+						</td>
+						<td>
+							<p class="fecha">{{fecha}}</p>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<p class="direccion">{{direccion}}</p>
+						</td>
+						<td>
+							<p class="documento">{{documento}}</p>
+						</td>
+					</tr>
+
+				</table>
+			</div>
+			<div class="contenido">
+				<table class="detalle">
+				    <tbody>
+				    {% for oVentaproducto in oVentaproductos %}
+				   		<tr>
+					    	<td>{{oVentaproducto.cantidad}}</td>
+					    	<td>{{oVentaproducto.producto.nombre}}</td>
+					    	<td class="pUnitario">{{oVentaproducto.precioventa}}</td>
+					    	<td class="subTotal">{{oVentaproducto.precioventa}}</td>
+				    	</tr>
+				    {% endfor %}
+					    
+		      		</tbody>
+				</table>
+			</div>
+			<div class="total">
+				<p class="total">
+					{{ total_venta }}
+				</p>
+			</div>
+
+		</div>
+	</body>
+</html>
