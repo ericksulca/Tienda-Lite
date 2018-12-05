@@ -36,14 +36,11 @@ def nuevoLote(request):
             cantidad = float(producto[0])
             oProducto.cantidad = oProducto.cantidad + cantidad
             oProducto.save()
-            print ("---------------")
             oLote.productos.add(oProducto)
             oLote.save()
-            print ("---------------")
             oLoteProductos = LoteProductos.objects.get(producto = oProducto,lote = oLote)
             oLoteProductos.cantidad = cantidad
             oLoteProductos.save()
-            print ("---------------")
         return HttpResponse(json.dumps({'exito':1,'id_Lote': oLote.id}), content_type="application/json")
     else:
         return render(request, 'lote/nuevo.html', {})
