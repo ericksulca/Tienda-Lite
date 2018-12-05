@@ -159,6 +159,7 @@ $(document).ready(function(){
                 switch (index2) {
                     case 1:
                         cantidad = $(this).text();
+                        contador = 1;
                         break;
                     case 2:
                         codigo = $(this).text();
@@ -168,21 +169,20 @@ $(document).ready(function(){
                         break;
                 }
             });
-            contador = 1;
             productos.push([cantidad,codigo,precioVenta]);
         });
         //console.log(productos);
         if (contador == 1) {
             var datos = {productos: productos};
-            var sendData = JSON.stringify(datos); 
+            var sendData = JSON.stringify(datos);
             $.ajax({
                 type: "POST",
                 dataType: "json",
-                url: "/venta/insertar/",                  
-                data: sendData,                    
+                url: "/venta/insertar/",
+                data: sendData,
                 contentType: "application/json; charset=utf-8",
                 async: false,
-                cache: false,                    
+                cache: false,
                 CrossDomain: true,
 
                 success: function (result) {

@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block imports %}
+Ventas
+{% endblock %}
+
+{% block title %}
+Ventas
+{% endblock %}
+
+{% block content %}
+	<div class="row">
+        <div class="col-sm-12">
+            <div class="white-box">
+                <h3 class="box-title">Lista de Ventas</h3>
+				{% load widget_tweaks %}
+				{% csrf_token %}
+					<div class="form-group">
+					<table id="tCamiones"  class="table">	
+						<thead>
+	                        <tr>
+	                            <th>#</th>
+	                            <th>Fecha</th>
+	                            <th>Productos</th>
+	                            <th>Monto</th>
+	                            <th>Opciones</th>
+	                        </tr>
+	                    </thead>
+				    {% for oVenta in object_list %}
+				    <tr>
+				    	<td>{{ forloop.counter }}</td>
+				    	<td>{{oVenta.fecha}}</td>
+				    	<td>
+				    		<ul>{% for producto in oVenta.productos.all %}
+								<li>
+									{{producto.nombre}}
+								</li>
+								{% endfor %}
+							</ul>
+						</td>
+				    	<td>{{oVenta.monto}}</td>
+				    	<td>
+				    		<a href="/venta/detalle/{{oVenta.id}}/"><button type="button" class="btn btn-info">Ver</button> </a>
+				    		<a href="/venta/anular/{{oVenta.id}}/"><button type="button" class="btn btn-danger">Anular</button> </a>
+				    	</td>
+				    </tr>
+				    {% endfor %}
+					</table>
+				    <br>	
+				    <ul class="pager">
+						<li>
+							{% if page_obj.has_previous %}
+					       	 <a href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+							{% endif %}
+					        </li>
+						<li>
+							{% if page_obj.has_next %}
+					     	 <a href="?page={{ page_obj.next_page_number }}">Siguiente</a> 
+					    	{% endif %}
+					    </li>
+					</ul>
+				    <br>	
+	    			<a href="/venta/nuevo/"><button type="button" class="btn btn-success">Nueva Venta</button> </a>
+ 
+			</div>
+	    </div>
+    </div>  
+{% endblock %}
