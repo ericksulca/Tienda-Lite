@@ -39,7 +39,9 @@ Buscar Venta
                 <form action="." method="post" enctype="multipart/form-data"> 
                 {% csrf_token %}
                     <div class="form-group">
-                        <input type="number" name="idVenta" id="idVenta" required class="form-control" value="{{oVenta.id}}" style="visibility:hidden">
+                        <label for="id_venta">Código de venta:</label>
+                        <br>    
+                        <input type="number" name="idVenta" id="idVenta" required class="form-control" disabled="disabled" value="{{oVenta.id}}" >
                         <br>    
                         <label for="id_nombre">Descripción:</label>
                         <br>    

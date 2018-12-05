@@ -15,37 +15,19 @@ import json
 class VentaList(ListView):
     model = Venta
     template_name = 'venta/listar.html'
-    paginate_by = 5
-    def get_queryset(self):
-        new_context = Venta.objects.filter(
-            estado=True,
-        ).order_by('-fecha')
-        return new_context
+    paginate_by = 50
 
 @login_required
 def anularVenta(request):
     if request.method == 'POST':
         Datos = request.POST
-        try:
-            opcion = Datos["NroVenta"]
-            #Datos["NroVenta"]:
+        if Datos["NroVenta"]:
             idVenta = Datos["NroVenta"]
             oVenta = Venta.objects.get(id= idVenta,estado=True)
             oVentaproductos = Ventaproductos.objects.filter(venta = oVenta,estado=True)
             return render(request, 'venta/anular.html', {'oVenta':oVenta,'oVentaproductos':oVentaproductos})
-        except:
-            opcion = 2
-        if opcion == 2:
-            oVenta = Venta.objects.get(id=Datos["idVenta"])
-            oAnulacionventa = Anulacionventa()
-            oAnulacionventa.usuario = request.user
-            oAnulacionventa.descripcion = Datos["DescAnulacion"]
-            oAnulacionventa.save()
-            oVenta.estado = False
-            oVenta.anulacionventa = oAnulacionventa
-            oVenta.save()
-            return render(request, 'venta/anulado.html', {'oVenta':oVenta})
-
+        if Datos["id_venta"]:
+            return render(request, 'venta/anular.html', {'oVenta':oVenta})
     if request.method == 'GET':
         return render(request, 'venta/buscar.html', {})
 
@@ -72,7 +54,6 @@ def imprimirVenta(request):
         idVenta = Datos["NroVenta"]
         try:
             oVenta = Venta.objects.get(id = idVenta)
-            #datos = Datos()
             cliente = ""
             direccion = ""
             fecha = str(oVenta.fecha)
@@ -90,11 +71,10 @@ def imprimirVentaGET(request,id_venta):
         idVenta = id_venta
         try:
             oVenta = Venta.objects.get(id = idVenta)
-            #datos = Datos()
-            cliente = "Erick Sulca"
-            direccion = "Jr lima 453"
+            cliente = " "
+            direccion = " "
             fecha = str(oVenta.fecha)
-            documento = "12345678"
+            documento = " "
             oVentaproductos = Ventaproductos.objects.filter(estado = True,venta = oVenta)
             return render(request, 'venta/reciboBoleta.html', {'oVentaproductos': oVentaproductos,'total_venta':oVenta.monto,'cliente':cliente,'direccion':direccion,'fecha':fecha,'documento':documento})
         except Exception as e:
@@ -107,6 +87,7 @@ def insertarVenta(request):
      if request.method == 'POST':
         Datos = json.loads(request.body)
         productos = Datos["productos"]
+        #print productos
         oVenta = Venta()
         oAperturacaja = Aperturacaja.objects.latest('id')
         oVenta.aperturacaja = oAperturacaja
@@ -114,7 +95,8 @@ def insertarVenta(request):
         Total = 0
         for producto in productos:
             monto = 0
-            oProducto = Producto.objects.get(codigo = producto[1])
+            oProducto = Producto.objects.filter(codigo = producto[1])
+            oProducto = oProducto[0]
             oVentaproductos = Ventaproductos()
             cantidad = float(producto[0])
             oVentaproductos.producto = oProducto
@@ -122,7 +104,7 @@ def insertarVenta(request):
             oVentaproductos.cantidad = cantidad
             oVentaproductos.precioventa = producto[2]
             oVentaproductos.save()
-            cantidadAnterior = oProducto.cantidad
+            cantidadAnterior = oProducto.cantidad 
             oProducto.cantidad = cantidadAnterior - cantidad
             oProducto.save()
             monto = float(producto[2])

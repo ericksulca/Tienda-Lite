@@ -85,6 +85,10 @@ Nueva Venta
         <div class="col-sm-12">
             <div class="white-box">
                 <h3 class="box-title">Nueva Venta</h3>
+                <label for="id_nombre">Cantidad:</label>
+                <br>
+                <input type="number" name="cantidad" id="cantidad" required="" class="form-control" onkeyup="if(event.keyCode == 13) agregar()" value=1>
+                <br>
                 <label for="id_nombre">Producto:</label>
                 <br>
                 <input type="text" name="inpt-producto" id="inpt-producto" required="" class="form-control" maxlength="45">
@@ -97,10 +101,7 @@ Nueva Venta
                 <br>
                 <input type="number" name="precio" id="precio" required="" class="form-control" disabled="disabled">
                 <br>
-                <label for="id_nombre">Cantidad:</label>
-                <br>
-                <input type="number" name="cantidad" id="cantidad" required="" class="form-control" >
-                <br>
+                
                 <button id="bt_add" class="btn btn-success">Agregar</button>
                 <button id="bt_del" class="btn btn-warning">Eliminar</button>
                 <button id="bt_delall" class="btn btn-danger">Eliminar todo</button>

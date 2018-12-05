@@ -23,18 +23,23 @@ $(document).ready(function(){
     });
     function CalcularSubTotal(id,cantidad){
         SubTotal = $('#precioUnitario'+id).val()*cantidad;
-        SubTotal = parseFloat(SubTotal).toFixed(2);
-        $('#SubTotal'+id).text(SubTotal);
+        SubTotal = parseFloat(Math.round((SubTotal) * 100) / 100).toFixed(2);
+        $('#subTotal'+id).val(SubTotal);
         RefrescarTotal();
-           
-
+        //console.log($(this));
+    }
+    function CalcularPrecioUnit(id,cantidad){
+        PrecioUnit = $('#subTotal'+id).val()/cantidad;
+        PrecioUnit = parseFloat(Math.round((PrecioUnit) * 100) / 100).toFixed(2);
+        $('#precioUnitario'+id).val(PrecioUnit);
+        RefrescarTotal();
         //console.log($(this));
     }
     function reset_values(){
         $('#inpt-producto').val('');
         $('#codigo').val('');
         $('#precio').val('');
-        $('#cantidad').val('');
+        $('#cantidad').val(1);
     }
 
     var TotalVenta=0;
@@ -56,12 +61,13 @@ $(document).ready(function(){
         }
         if (error=="") {
             SubTotal = parseFloat(precio*cantidad).toFixed(2);
-            var fila='<tr class="selected" id="fila'+cont+'" onclick="seleccionar(this.id);"><td>'+cont+'</td><td>'+cantidad+'</td><td>'+codigo+'</td><td>'+Producto+'</td><td><input type="number" name="precioUnitario'+cont+'" id="precioUnitario'+cont+'" required="" class="form-control" value="'+precio+'" onchange="CalcularSubTotal('+cont+','+cantidad+')" ></td></td><td><label id="SubTotal'+cont+'" name="SubTotal'+cont+'">'+SubTotal+'</label></td></tr>';
+            var fila='<tr class="selected" id="fila'+cont+'" onclick="seleccionar(this.id);"><td>'+cont+'</td><td>'+cantidad+'</td><td>'+codigo+'</td><td>'+Producto+'</td><td><input type="number" name="precioUnitario'+cont+'" id="precioUnitario'+cont+'" required="" class="form-control" value="'+precio+'" onchange="CalcularSubTotal('+cont+','+cantidad+')" ></td></td><td><input type="number" name="subTotal'+cont+'" id="subTotal'+cont+'" required="" class="form-control" value="'+precio*cantidad+'" onchange="CalcularPrecioUnit('+cont+','+cantidad+')" ></td></tr>';
             $('#tabla').append(fila);
 
             TotalVenta =  parseFloat(Math.round((TotalVenta + (precio*cantidad)) * 100) / 100).toFixed(2);
 
             //$('#id_Total').text("S/. "+TotalVenta);
+            //<label id="SubTotal'+cont+'" name="SubTotal'+cont+'">'+SubTotal+'</label> 
             RefrescarTotal();
             reset_values();
             reordenar();
@@ -79,6 +85,8 @@ $(document).ready(function(){
             
             }
         }
+        $( "#inpt-producto" ).focus();
+
     }
 
     function seleccionar(id_fila){
@@ -123,9 +131,11 @@ $(document).ready(function(){
     function RefrescarTotal(){
         Total=0;
         $('#tabla tbody tr').each(function(){
-            valor = $(this).find('td').eq(5).children('label').text();
-            //console.log(valor);
+            //valor = $(this).find('td').eq(5).children('label').text();
+            valor = $(this).find('td').eq(5).children('input').val();
+            //console.log(valor2);
             Total = Total + parseFloat(valor);
+            Total = parseFloat(Math.round((Total) * 100) / 100).toFixed(2)
             $('#id_Total').text(Total);
             //alert(Total);
         });
@@ -154,7 +164,7 @@ $(document).ready(function(){
                         codigo = $(this).text();
                         break;
                     case 5:
-                        precioVenta = $(this).text();
+                        precioVenta = $(this).children('input').val();
                         break;
                 }
             });
@@ -180,6 +190,7 @@ $(document).ready(function(){
                     alert('Venta Registrada');
                     location.reload(true);
                     imprimir_venta(id_venta);
+                    $( "#inpt-producto" ).focus();
                 }
             });
         }else{

@@ -15,8 +15,9 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
 class ProductoList(ListView):
     model = Producto
+    #print model
     template_name = 'producto/listar.html'
-    paginate_by = 5
+    paginate_by = 30
 
 @login_required
 def listarProducto(request):
@@ -68,20 +69,3 @@ def BuscarProducto (request):
             jsonProductos["productos"].append(jsonProducto)
 
         return HttpResponse(json.dumps(jsonProductos), content_type="application/json")
-
-@login_required
-def editarProducto(request):
-    if request.method == 'POST':
-        Datos = request.POST
-        form = ProductoForm(request.POST)
-        if form.is_valid():
-            try:
-                form = form.save()
-                return HttpResponseRedirect('/producto/listar/')
-            except Exception as e:
-                return HttpResponseRedirect('/')
-        else:
-            return HttpResponseRedirect('/')
-    else:
-        form = ProductoForm()
-        return render(request, 'producto/registrar.html', {'form': form})

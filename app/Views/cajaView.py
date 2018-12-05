@@ -39,11 +39,11 @@ def registrarCierrecaja(request):
             if  oAperturacaja.activo==True:
                 monto = Venta.objects.filter(estado=1,aperturacaja = oAperturacaja).aggregate(Sum('monto'))
                 form = CierrecajaForm(initial={'monto':monto["monto__sum"]})
-                form.fields['monto'].widget.attrs['readonly'] = True
                 return render(request, 'caja/cierre.html', {'form': form,'Aperturacaja': oAperturacaja,'monto': monto["monto__sum"],'cajas':oCajas})
             else:
                 return render(request, 'caja/cierreNoRegistrado.html', {'cajas':oCajas})
         except Exception as e:
+            #print e
             return render(request, 'caja/cierreNoRegistrado.html', {'cajas':oCajas})
 
 @login_required
@@ -72,3 +72,4 @@ def registrarAperturacaja(request):
 
         except Exception as e:
             return render(request, 'caja/apertura.html', {'form': form,'cajas':oCajas})
+
