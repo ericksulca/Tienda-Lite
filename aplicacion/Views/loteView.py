@@ -32,7 +32,8 @@ def nuevoLote(request):
         oLote.save()
         #a1.publications.add(p1)
         for producto in productos:
-            oProducto = Producto.objects.get(codigo = producto[1])
+            oProducto = Producto.objects.filter(codigo = producto[1])
+            oProducto= oProducto[0]
             cantidad = float(producto[0])
             oProducto.cantidad = oProducto.cantidad + cantidad
             oProducto.save()

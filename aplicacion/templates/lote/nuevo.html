@@ -3,7 +3,8 @@
 <script type="text/javascript" src="/static/js/lote.js"></script>
 <script type="text/javascript">
     $(document).ready(function(){
-        $( "#inpt-producto" ).focus();
+        $( "#cantidad" ).focus();
+        //$( "#inpt-producto" ).focus();
         $('cantidad').prop('disabled', true);
         $( "#inpt-producto" ).autocomplete({
             source: function (request, response) {
@@ -83,18 +84,19 @@ Nueva Venta
         <div class="col-sm-12">
             <div class="white-box">
                 <h3 class="box-title">Nuevo Lote</h3>
+                <br>
+                <label for="id_nombre">Cantidad:</label>
+                <br>
+                <input type="number" name="cantidad" id="cantidad" required="" class="form-control" >
                 <label for="id_nombre">Producto:</label>
                 <br>
-                <input type="text" name="inpt-producto" id="inpt-producto" required="" class="form-control" maxlength="45">
+                <input type="text" name="inpt-producto" id="inpt-producto" required="" class="form-control" maxlength="45" onkeyup="if(event.keyCode == 13) InsertarLote()">
                 <br>
                 <label for="id_nombre">Código:</label>
                 <br>
                 <input type="text" name="codigo" id="codigo" required="" class="form-control" disabled="disabled">
                 <br>
-                <label for="id_nombre">Cantidad:</label>
-                <br>
-                <input type="number" name="cantidad" id="cantidad" required="" class="form-control" >
-                <br>
+                
                 <button id="bt_add" class="btn btn-success">Agregar</button>
                 <button id="bt_del" class="btn btn-warning">Eliminar</button>
                 <button id="bt_delall" class="btn btn-danger">Eliminar todo</button>

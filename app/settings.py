@@ -25,7 +25,7 @@ SECRET_KEY = 'w*dv=eq=0_zwjp5qr2h*#qt3g7@0(xf6k@dm$-xrrzrct=q)2o'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 LOGIN_URL = '/login/'
 # Application definition
@@ -78,9 +78,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'mysql_cymysql',
         'NAME': 'admin_tiendalite',
-    'USER': 'admin_tiendalite',
-    'PASSWORD': '2ZTAP6wMPD',
-    'HOST': '138.197.36.187',
+    'USER': 'root',
+    'PASSWORD': '',
+    'HOST': '',
     'PORT': '',
 
     }

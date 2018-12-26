@@ -70,6 +70,7 @@ function agregar() {
 
     }
   }
+   $( "#cantidad" ).focus();
 }
 
 function seleccionar(id_fila) {

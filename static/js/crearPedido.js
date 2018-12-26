@@ -76,7 +76,7 @@ $(document).ready(function(){
             switch(error) {
             case 1:
                 alert("Seleccione un producto válido!");
-                $( "#inpt-producto" ).focus();
+                $( "#cantidad" ).focus();
                 break;
             case 2:
                 alert("Ingrese una cantidad");
@@ -85,7 +85,7 @@ $(document).ready(function(){
             
             }
         }
-        $( "#inpt-producto" ).focus();
+        $( "#cantidad" ).focus();
 
     }
 
@@ -190,7 +190,7 @@ $(document).ready(function(){
                     alert('Venta Registrada');
                     location.reload(true);
                     imprimir_venta(id_venta);
-                    $( "#inpt-producto" ).focus();
+                    $( "#cantidad" ).focus();
                 }
             });
         }else{
