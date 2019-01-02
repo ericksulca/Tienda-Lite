@@ -13,11 +13,19 @@ import json
 from aplicacion.formularios.productoForm import *
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
+class UserListView(ListView):
+    model = User
+    template_name = 'core/user_list.html'  # Default: <app_label>/<model_name>_list.html
+    context_object_name = 'users'  # Default: object_list
+    paginate_by = 10
+    queryset = User.objects.all()  # Default: Model.objects.all()
+
 class ProductoList(ListView):
     model = Producto
     #print model
     template_name = 'producto/listar.html'
     paginate_by = 30
+    queryset = Producto.objects.filter(estado=True)  # Default: Model.objects.all()
 
 class ProductoUpdate(UpdateView):
     model = Producto

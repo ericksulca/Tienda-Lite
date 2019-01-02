@@ -163,7 +163,8 @@ body{
 		<br>
 		
 		<div class="login">
-			<form method="post" role="form" action=".?next={{ redirect_to }}"> {% csrf_token %}
+			<form method="post" role="form" action=".?next={{ redirect_to }}"> 
+				{% csrf_token %}
 		   		<input type="text" placeholder="Usuario" name="username" autofocus ><br>
 				<input type="password" placeholder="Contraseña" name="password"><br>
 				<input type="submit" value="Ingresar">
